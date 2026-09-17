@@ -27,21 +27,27 @@ npm start
 ## Estructura del proyecto
 
 ```
-app/
-  layout.tsx              Layout raíz: envuelve la app en CartProvider y monta el Header
-  page.tsx                Catálogo principal (Server Component, fetch a /products)
-  globals.css             Estilos globales
-  productos/[id]/
-    page.tsx              Vista de detalle (ruta dinámica, fetch a /products/{id})
-    not-found.tsx         Vista para productos inexistentes
-components/
-  Header.tsx              Barra superior persistente con contador del carrito
-  ProductCard.tsx         Tarjeta de producto del catálogo
-  AddToCartButton.tsx     Botón reutilizable para agregar al carrito (client component)
-context/
-  CartContext.tsx         React Context con el estado global del carrito
-types/
-  product.ts              Contratos de TypeScript (Product, ProductDetail, CartItem)
+src/
+  app/
+    layout.tsx              Layout raíz: envuelve la app en CartProvider y monta el Header
+    page.tsx                Catálogo principal (Server Component, fetch a /products)
+    globals.css             Estilos globales
+    carrito/
+      page.tsx              Vista del carrito + formulario de checkout
+    productos/[id]/
+      page.tsx              Vista de detalle (ruta dinámica, fetch a /products/{id})
+      not-found.tsx         Vista para productos inexistentes
+  components/
+    Header.tsx              Barra superior persistente con contador del carrito (enlaza a /carrito)
+    ProductCard.tsx         Tarjeta de producto del catálogo
+    AddToCartButton.tsx     Botón reutilizable para agregar al carrito (client component)
+    CheckoutForm.tsx        Formulario de checkout (React Hook Form + Zod)
+  context/
+    CartContext.tsx         React Context con el estado global del carrito
+  schemas/
+    checkout.ts             Esquema Zod del formulario de checkout (+ tipo inferido)
+  types/
+    product.ts               Contratos de TypeScript (Product, ProductDetail, CartItem)
 ```
 
 ## Decisiones de arquitectura
@@ -58,6 +64,12 @@ types/
   (`map`, spread) en vez de mutar el estado existente.
 - **Tipado**: todos los datos de productos y props de componentes están tipados en
   `types/product.ts`.
+- **Formularios**: el checkout (`/carrito`) usa **React Hook Form** en modo no controlado
+  (`register` conectado a referencias del DOM, sin `useState` por campo) combinado con
+  **Zod** como fuente única de verdad para la validación (`zodResolver`, `z.infer` para
+  el tipo `CheckoutFormValues`). El envío es asíncrono (`async/await` sobre una función
+  que retorna una `Promise`) y `formState.isSubmitting` deshabilita el botón y muestra
+  feedback mientras la operación está pendiente.
 
 ## Notas de seguridad
 
