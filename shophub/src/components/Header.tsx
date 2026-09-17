@@ -13,14 +13,10 @@ export default function Header() {
           🛍️ ShopHub
         </Link>
 
-        <Link
-          href="/carrito"
-          className="cart-indicator"
-          aria-label="Ver carrito de compras"
-        >
+        <div className="cart-indicator" aria-label="Productos en el carrito">
           <span className="cart-indicator__icon">🛒</span>
           <span className="cart-indicator__count">{totalCount}</span>
-        </Link>
+        </div>
       </div>
     </header>
   );
