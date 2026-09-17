@@ -5,11 +5,12 @@ import AddToCartButton from "@/components/AddToCartButton";
 
 interface ProductCardProps {
   product: Product;
+  priority?: boolean;
 }
 
 // Componente de servidor: no necesita estado propio, solo recibe
 // el producto por props y delega la interactividad a AddToCartButton.
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product, priority = false }: ProductCardProps) {
   return (
     <article className="product-card">
       <Link href={`/productos/${product.id}`} className="product-card__link">
@@ -20,6 +21,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 25vw"
             className="product-card__image"
+            priority={priority}
           />
         </div>
         <div className="product-card__body">

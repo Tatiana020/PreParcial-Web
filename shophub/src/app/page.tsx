@@ -28,8 +28,8 @@ export default async function HomePage() {
       </section>
 
       <section className="catalog__grid">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
+        {products.map((product, index) => (
+          <ProductCard key={product.id} product={product} priority={index < 4} />
         ))}
       </section>
     </div>
