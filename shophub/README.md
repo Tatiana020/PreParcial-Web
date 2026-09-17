@@ -50,37 +50,4 @@ src/
     product.ts               Contratos de TypeScript (Product, ProductDetail, CartItem)
 ```
 
-## Decisiones de arquitectura
 
-- **Server vs Client Components**: `app/page.tsx` y `app/productos/[id]/page.tsx` son
-  Server Components (hacen `fetch` directo al montar la página). Solo se marcan como
-  `"use client"` los componentes que necesitan estado, eventos o Context:
-  `Header`, `AddToCartButton` y `CartContext`.
-- **Estado global**: `CartContext` centraliza los productos del carrito y expone
-  `addToCart`, `removeFromCart`, `clearCart`, `totalCount` y `totalPrice`. Al envolver
-  toda la app en `CartProvider` desde el `layout.tsx`, el estado persiste al navegar
-  entre el catálogo y el detalle sin recargar el navegador (SPA).
-- **Inmutabilidad**: las actualizaciones del carrito siempre crean nuevos arreglos/objetos
-  (`map`, spread) en vez de mutar el estado existente.
-- **Tipado**: todos los datos de productos y props de componentes están tipados en
-  `types/product.ts`.
-- **Formularios**: el checkout (`/carrito`) usa **React Hook Form** en modo no controlado
-  (`register` conectado a referencias del DOM, sin `useState` por campo) combinado con
-  **Zod** como fuente única de verdad para la validación (`zodResolver`, `z.infer` para
-  el tipo `CheckoutFormValues`). El envío es asíncrono (`async/await` sobre una función
-  que retorna una `Promise`) y `formState.isSubmitting` deshabilita el botón y muestra
-  feedback mientras la operación está pendiente.
-
-## Notas de seguridad
-
-El proyecto usa **Next.js 16.3.5** y **React 19** (versiones sin vulnerabilidades
-conocidas al momento de esta entrega — `npm audit` reporta 0 vulnerabilidades).
-Next.js 14.x fue evitado deliberadamente por tener una vulnerabilidad crítica de RCE
-en la optimización de imágenes AVIF sin parche disponible en esa rama.
-
-## Pendiente para la entrega (fuera del código)
-
-1. Subir este proyecto a un repositorio público de GitHub.
-2. Crear un GitHub Release con tag `v1.0.0` (o `preparcial-v1.0`).
-3. Grabar el video demostrativo (4-7 min) mostrando el release, el commit local,
-   la navegación SPA y la sincronización del carrito.
