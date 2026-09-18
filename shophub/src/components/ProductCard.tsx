@@ -2,6 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Product } from "@/types/product";
 import AddToCartButton from "@/components/AddToCartButton";
+import RomveFromCartButton from "../components/RemoveFromCart";
+import RemoveFromButton from "../components/RemoveFromCart";
 
 interface ProductCardProps {
   product: Product;
@@ -39,6 +41,10 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
       </Link>
       <div className="product-card__footer">
         <AddToCartButton product={product} fullWidth />
+      </div>
+      <div className="product-card__footer">
+        <AddToCartButton product={product} fullWidth />
+        <RemoveFromButton product={product} fullWidth />
       </div>
     </article>
   );

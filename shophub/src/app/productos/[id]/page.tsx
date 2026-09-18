@@ -2,7 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import AddToCartButton from "@/components/AddToCartButton";
+import RemoveFromCart from "@/components/RemoveFromCart";
 import type { ProductDetail } from "@/types/product";
+
 
 interface ProductPageProps {
   params: Promise<{ id: string }>;
@@ -69,6 +71,7 @@ export default async function ProductDetailPage({
           <p className="product-detail__description">{product.description}</p>
 
           <AddToCartButton product={product} />
+          <RemoveFromCart product = {product} />
         </div>
       </div>
     </div>
