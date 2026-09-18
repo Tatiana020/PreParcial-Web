@@ -67,9 +67,4 @@ conocidas al momento de esta entrega — `npm audit` reporta 0 vulnerabilidades)
 Next.js 14.x fue evitado deliberadamente por tener una vulnerabilidad crítica de RCE
 en la optimización de imágenes AVIF sin parche disponible en esa rama.
 
-## Pendiente para la entrega (fuera del código)
-
-1. Subir este proyecto a un repositorio público de GitHub.
-2. Crear un GitHub Release con tag `v1.0.0` (o `preparcial-v1.0`).
-3. Grabar el video demostrativo (4-7 min) mostrando el release, el commit local,
-   la navegación SPA y la sincronización del carrito.
+Punto 1 (Evolución del Contexto): Explique cómo cambió el modelo de datos dentro de CartContext respecto al preparcial y cómo aseguró la inmutabilidad de la información al manipular las cantidades y productos en memoria. se agrego un boton, en componentes, para que se viera en la vista y en el contexto
