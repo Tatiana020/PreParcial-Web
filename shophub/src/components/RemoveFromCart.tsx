@@ -1,4 +1,4 @@
-
+"use client";
 import { useState } from "react";
 import { useCart } from "../context/CartContext";
 import type { Product } from "../types/product";
@@ -8,12 +8,14 @@ interface RemoveFromCartButtonProps {
   fullWidth?: boolean;
 }
 
-export default function RemoveFromButton({
+export default function RemoveFromCartButton({
   product,
   fullWidth = false,
 }: RemoveFromCartButtonProps) {
-  const { removeFromCart } = useCart();
+  const { removeFromCart, items } = useCart();   // ← una sola vez, con items incluido
   const [justRemoved, setJustRemoved] = useState(false);
+
+  const isInCart = items.some((item) => item.id === product.id);
 
   const handleClick = () => {
     removeFromCart(product.id);
@@ -21,19 +23,18 @@ export default function RemoveFromButton({
     setTimeout(() => setJustRemoved(false), 1200);
   };
 
-
   return (
     <button
       type="button"
       onClick={handleClick}
       className={`remove-from-cart-btn ${fullWidth ? "remove-from-cart-btn--full" : ""}`}
-      disabled={product.stock <= 0}
+      disabled={!isInCart}
     >
-      {product.stock > 0
-        ? "No hay prodcuto en el carrito"
-        : justRemoved
-        ? "✓ Quitado"
-        : "Quitado del carrito"}
+      {isInCart
+        ? justRemoved
+          ? "✓ Quitado"
+          : "Quitar del carrito"
+        : "No está en el carrito"}
     </button>
   );
 }

@@ -1,5 +1,7 @@
+import ClearCartButton from "@/components/ClearCartButton";
 import ProductCard from "@/components/ProductCard";
 import type { ProductListResponse } from "@/types/product";
+import CartTotalDisplay from "@/components/CartTotalDisplay";
 
 const CATALOG_ENDPOINT =
   "https://dummyjson.com/products?limit=8&select=id,title,price,category,thumbnail,stock";
@@ -19,13 +21,16 @@ async function getProducts(): Promise<ProductListResponse> {
 
 export default async function HomePage() {
   const { products } = await getProducts();
-
   return (
     <div className="catalog">
       <section className="catalog__intro">
         <h1>Catálogo de productos</h1>
         <p>Explora nuestros artículos disponibles y agrégalos al carrito.</p>
       </section>
+      <div className="catalog__actions" style={{ marginBottom: "1rem" }}>
+        <ClearCartButton fullWidth={false} />
+        <CartTotalDisplay />
+      </div>
 
       <section className="catalog__grid">
         {products.map((product, index) => (

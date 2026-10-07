@@ -12,8 +12,7 @@ export default function Header() {
         <Link href="/" className="brand">
           🛍️ ShopHub
         </Link>
-
-        <Link href="/formulario" className="cart-indicator" aria-label="Productos en el carrito">
+        <Link href="/checkout" className="cart-indicator" aria-label="Productos en el carrito">
           <span className="cart-indicator__icon">🛒</span>
           <span className="cart-indicator__count">{totalCount}</span>
         </Link>

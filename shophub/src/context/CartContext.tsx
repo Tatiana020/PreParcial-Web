@@ -49,23 +49,15 @@ export function CartProvider({ children }: { children: ReactNode }) {
     });
   };
 
-  const removeFromCart = (cartItem:CartItem) => {
-    setItems((prevItems) => {
-    const existing = prevItems.find((item) => item.id === cartItem.id);
-    if (existing) {
-        return prevItems.map((item) =>
-          item.id === cartItem.id
-            ? { ...item, quantity: item.quantity - 1 }
-            : item
-        );
-      }
-    const producto: CartItem = {
-        quantity: -1,
-      };
-
-    return [...prevItems, producto];
-    });
-  };
+  const removeFromCart = (id: number) => {
+  setItems((prevItems) =>
+    prevItems
+      .map((item) =>
+        item.id === id ? { ...item, quantity: item.quantity - 1 } : item
+      )
+      .filter((item) => item.quantity > 0)
+  );
+};
 
   const clearCart = () => setItems([]);
 
