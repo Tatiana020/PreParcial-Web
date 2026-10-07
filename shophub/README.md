@@ -67,4 +67,27 @@ conocidas al momento de esta entrega — `npm audit` reporta 0 vulnerabilidades)
 Next.js 14.x fue evitado deliberadamente por tener una vulnerabilidad crítica de RCE
 en la optimización de imágenes AVIF sin parche disponible en esa rama.
 
-Punto 1 (Evolución del Contexto): Explique cómo cambió el modelo de datos dentro de CartContext respecto al preparcial y cómo aseguró la inmutabilidad de la información al manipular las cantidades y productos en memoria. se agrego un boton, en componentes, para que se viera en la vista y en el contexto
+Punto 1 (Evolución del Contexto): A Cart context se le agrego para manejar clearCart, removeFromCart y totalPrice, agregandolos a cartContextValue y sus funciones pertinentes, estos en conjunto y usando memo ,que ya estaba antes, permitian llevar las cuentas apropiadamente
+
+Punto 2 (Cálculo de Totales): Se uso totalPrice creado en el punto anterior que es ir sumando la multiplicacion de los precios por la cantidad de cada item en cartContext. UseMemo se uso de la misma forma que se hizo con quantity
+
+Punto 3 (Arquitectura del Formulario): El formulario de checkout se estructuró como un componente funcional de React llamado CheckoutForm, utilizando TypeScript para definir los tipos de los datos y de los eventos.
+Se implementó un flujo completo de formulario de checkout:
+Captura de datos del usuario.
+Manejo del estado con React.
+Validación de los campos.
+Mensajes de error según la interacción del usuario.
+Selección del método de pago.
+Aceptación de términos y condiciones.
+Estado de carga mientras se procesa el pedido.
+Bloqueo del botón durante el procesamiento.
+Limpieza del carrito después de completar el pedido.
+Reinicio del formulario y notificación al componente padre.
+
+Las tecnologías utilizadas fueron:
+React: para construir el componente y manejar su estado y eventos.
+TypeScript: para definir interfaces y tipar estados y eventos.
+React Hooks (useState): para manejar el estado interno del formulario.
+Context API mediante useCart: para comunicarse con el estado global del carrito y ejecutar clearCart.
+Programación asíncrona (Promise, async/await): para simular el procesamiento del pedido.
+Next.js: el "use client" indica que este componente se ejecuta del lado del cliente dentro de una aplicación Next.js.

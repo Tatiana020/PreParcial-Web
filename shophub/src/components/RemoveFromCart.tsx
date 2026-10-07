@@ -12,7 +12,7 @@ export default function RemoveFromCartButton({
   product,
   fullWidth = false,
 }: RemoveFromCartButtonProps) {
-  const { removeFromCart, items } = useCart();   // ← una sola vez, con items incluido
+  const { removeFromCart, items } = useCart();  
   const [justRemoved, setJustRemoved] = useState(false);
 
   const isInCart = items.some((item) => item.id === product.id);
